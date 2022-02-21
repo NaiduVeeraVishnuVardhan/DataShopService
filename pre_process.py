@@ -25,16 +25,15 @@ def run(jobID, url,json1):
     payloadforservice
         payload for model/service
     """
+    
     if( (json1 == '') and (url == '') ):
         inputPayloadForService = ''
         return inputPayloadForService
     elif( url == ''  ):
         inputPayloadForService = json1['body']
-        return inputPayloadForService
-        
+        return inputPayloadForService            
     elif( json1 == '' ):
         input_file_location,fileName = downloadFile(jobID,url)
-        
         if fileName.endswith(".zip"):
             extracted_folder,files_list = extract_zip_file(input_file_location) 
             extractedFileLocation = extracted_folder+files_list[0]
@@ -46,7 +45,6 @@ def run(jobID, url,json1):
             #Handle your file located in location - input_file_location
             with open(input_file_location) as f:
                 inputPayloadForService = f.read()
-                print("here", inputPayloadForService)
         return inputPayloadForService
     
     else:
@@ -56,15 +54,14 @@ def run(jobID, url,json1):
         with open(input_file_location, 'wb') as fileHandle :
             fileHandle.write(req.content)
         print(f"File Downloaded to {input_file_location}")
-
         with open(input_file_location) as f: 
             inputPayloadFromURL = f.read()  
         
-        inputPayloadFromJSON = json1['body']
-        
+        inputPayloadFromJSON = json1['body']            
         inputPayloadForService = [inputPayloadFromURL,inputPayloadFromJSON]    
         
         return inputPayloadForService
+
 
 
 def extract_zip_file(zipped_file):
@@ -92,9 +89,16 @@ def extract_zip_file(zipped_file):
 def downloadFile(jobID,url):     
     fileName = url.split("/")[-1]
     input_file_location = f"tmp/{jobID}-{fileName}"
+    # try:
     req = requests.get(url)
+        
     with open(input_file_location, 'wb') as fileHandle :
         fileHandle.write(req.content)
     print(f"File Downloaded to {input_file_location}")
-    
+
     return input_file_location,fileName
+    # except:
+    #     print("Error in downloading file")
+    #     raise ValueError("Erro Downloading File")
+
+
