@@ -32,14 +32,13 @@ def run(jobID, dataLocation):
         if file_name.lower().endswith(".csv"):
             insightsS3Link = backend.upload_document(file_name, file_path)
         print("insights link here:",insightsS3Link)
-        return __updateJob(jobID, insightsS3Link, None)
+        return updateJob(jobID, insightsS3Link, None)
         
     except Exception as e:
-        return __updateJob(None, None, str(e))
+        return updateJob(jobID, None, str(e))
         
 
-
-def __updateJob(jobID, insightsS3Link, err):
+def updateJob(jobID, insightsS3Link, err):
     """
     title:: 
         __updateJob

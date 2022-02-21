@@ -18,7 +18,7 @@ class predict(Resource):
             input_dict = request.get_json()
             input_dict1 = request.json        
             inputdata = input_dict["dataFileURL"]
-        
+            
             if(os.path.exists("tmp")):
                 shutil.rmtree("tmp")
             os.mkdir('tmp')
@@ -32,6 +32,8 @@ class predict(Resource):
             status_map = post_process.run(input_dict["jobID"], insightsDataFileLocation)
             return {"statusCode": status_map["status_code"], "body": status_map["json_response"]}
         except Exception as e:
+            #updating job with FAILED status.
+            post_process.updateJob(input_dict["jobID"], None, str(e))
             return {"statusCode": 400, "error": str(e)}
 
 api.add_resource(predict, '/predict')
