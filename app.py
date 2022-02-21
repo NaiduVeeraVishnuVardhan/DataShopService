@@ -13,14 +13,12 @@ class predict(Resource):
     @staticmethod
     def post():
         # Loads the body of the event.
-        # input_dict = json.loads(event['body'])
-        input_dict = request.get_json()
-        input_dict1 = request.json
-        
-        # os.mkdir('tmp')
-        
-        inputdata = input_dict["dataFileURL"]
+
         try:
+            input_dict = request.get_json()
+            input_dict1 = request.json        
+            inputdata = input_dict["dataFileURL"]
+        
             if(os.path.exists("tmp")):
                 shutil.rmtree("tmp")
             os.mkdir('tmp')
