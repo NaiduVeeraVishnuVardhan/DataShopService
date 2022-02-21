@@ -18,11 +18,14 @@ class predict(Resource):
         input_dict1 = request.json
         shutil.rmtree("tmp")
         os.mkdir('tmp')
-        inputdata = input_dict["dataFileURL"]
         
-        # running the preprocessing steps for the model. It takes dataset URL, jobID, json as input, download the dataset and read the input.
-        inputPayloadForService = pre_process.run(input_dict["jobID"], inputdata["url"], inputdata["json"])
-        print("DF's in lambda", inputPayloadForService)
+        inputdata = input_dict["dataFileURL"]
+        try:
+            # running the preprocessing steps for the model. It takes dataset URL, jobID, json as input, download the dataset and read the input.
+            inputPayloadForService = pre_process.run(input_dict["jobID"], inputdata["url"], inputdata["json"])
+            print("DF's in lambda", inputPayloadForService)
+        except:
+            pass 
 
         # model buliding/ getting the predictions here. It takes jobID and inputPayloadForService as input, run the model and get precitions saved in the temp folder of lambda.
         insightsDataFileLocation = model.run(input_dict["jobID"], inputPayloadForService)

@@ -2,7 +2,7 @@ import requests
 import json
 import os
 def upload_document(file_name, file_path):
-  url = f"{os.environ.get('BACKEND_URL')}/api/upload/uploadDocument"
+  url = "13.54.161.206:8000/api/upload/uploadDocument"
   payload={}
   files=[
     ('documentFile',(file_name,open(file_path+file_name,'rb'),'text/csv'))
@@ -16,7 +16,7 @@ def upload_document(file_name, file_path):
   return inputdata["original"]
 
 def upload_image(file_name, file_path):
-  url = f"{os.environ.get('BACKEND_URL')}/api/upload/uploadImage"
+  url = "13.54.161.206:8000/api/upload/uploadImage"
   payload={}
   files=[
     ('imageFile',(file_name,open(file_path+file_name,'rb','image/png')))

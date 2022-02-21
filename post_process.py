@@ -50,7 +50,7 @@ def __updateJob(jobID, insightsS3Link):
         response from the datashop application.
     """
     status_map = {'status_code': '', 'json_response': ''}    
-    dataShopEndpointURL = f"{os.environ.get('BACKEND_URL')}/api/job/updateJob"
+    dataShopEndpointURL = "13.54.161.206:8000/api/job/updateJob"
     payload = json.dumps({
                 "insightFileURL": insightsS3Link,
                 "jobid":jobID

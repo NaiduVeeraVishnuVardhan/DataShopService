@@ -43,7 +43,6 @@ def run(jobID, url,json1):
             with open(extractedFileLocation) as f: 
                 inputPayloadForService = f.read()  
         else:
-            print("zip file condition FALSE")
             #Handle your file located in location - input_file_location
             with open(input_file_location) as f:
                 inputPayloadForService = f.read()
