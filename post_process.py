@@ -24,16 +24,22 @@ def run(jobID, dataLocation):
     insightsS3Link = ""
     file_name = dataLocation.split("/")[-1]
     file_path = dataLocation.replace(file_name,"")
-    if file_name.lower().endswith(".csv"):
-        insightsS3Link = backend.upload_document(file_name, file_path)
-        print("insights link here:",insightsS3Link)
+    
     # elif file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
     #     insightsS3Link = backend.upload_image(file_name, file_path) 
+
+    try:
+        if file_name.lower().endswith(".csv"):
+            insightsS3Link = backend.upload_document(file_name, file_path)
+        print("insights link here:",insightsS3Link)
+        return __updateJob(jobID, insightsS3Link, None)
         
-    return __updateJob(jobID, insightsS3Link)
+    except Exception as e:
+        return __updateJob(None, None, str(e))
+        
 
 
-def __updateJob(jobID, insightsS3Link):
+def __updateJob(jobID, insightsS3Link, err):
     """
     title:: 
         __updateJob
@@ -50,20 +56,25 @@ def __updateJob(jobID, insightsS3Link):
         response from the datashop application.
     """
     status_map = {'status_code': '', 'json_response': ''}    
-    dataShopEndpointURL = f"{os.environ.get('BACKEND_URL')}/api/job/updateJob"
-    payload = json.dumps({
-                "insightFileURL": insightsS3Link,
-                "jobid":jobID
-            })  
+    dataShopEndpointURL = "http://13.54.161.206:8000/api/job/updateJob"
+
+    if(err):
+        payload = json.dumps({
+            "insightFileURL": "N/A",
+            "jobid":jobID
+        })
+    else:    
+        payload = json.dumps({
+                    "insightFileURL": insightsS3Link,
+                    "jobid":jobID
+                })  
+
     headers = {
       'Content-Type': 'application/json'
     }
     response = requests.request("PUT", dataShopEndpointURL, headers=headers, data=payload)
     status_map["json_response"] = json.dumps(response.text)
-    status_map["status_code"] = response.status_code
-
-
-
+    status_map["status_code"] = response.status_code 
     return status_map
     
     
