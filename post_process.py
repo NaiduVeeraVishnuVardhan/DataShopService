@@ -57,7 +57,7 @@ def updateJob(jobID, insightsS3Link, err):
     status_map = {'status_code': '', 'json_response': ''}    
     dataShopEndpointURL = f"{os.environ.get('BACKEND_URL')}/api/job/updateJob"
 
-    if(err):
+    if(err):    
         payload = json.dumps({
             "insightFileURL": "N/A",
             "jobid":jobID
