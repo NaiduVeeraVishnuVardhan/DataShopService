@@ -26,4 +26,4 @@ This template consists of three stages:
 Include necessary packages for your model in requirements.txt. We prefer you to use pip freeze > requirements.txt 
 
 **docker build** dockerimagename:tagname .
-**docker run -d -e BACKEND_URL=****ADDRESSOFDATASHOPSERVICE** **-p 5000:5000** dockerimagename:tagname
+**docker run -d -e BACKEND_URL=**ADDRESSOFDATASHOPSERVICE **-p 5000:5000** dockerimagename:tagname
