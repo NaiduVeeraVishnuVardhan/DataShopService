@@ -23,8 +23,12 @@ This template consists of three stages:
 - upload the results file to s3 and, update the results link in the datashop server. 
 
 **Building a docker**
+
 Include necessary packages for your model in requirements.txt. We prefer you to use pip freeze > requirements.txt 
+
 
 **docker build** dockerimagename:tagname .
 
-**docker run -d -e BACKEND_URL=**ADDRESSOFDATASHOPSERVICE **-p 5000:5000** dockerimagename:tagname
+**RUN Command for DOCKER**
+
+docker run -d -e BACKEND_URL=ADDRESSOFDATASHOPSERVICE -p 5000:5000 dockerimagename:tagname
