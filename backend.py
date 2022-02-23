@@ -19,7 +19,7 @@ def upload_image(file_name, file_path):
   url = f"{os.environ.get('BACKEND_URL')}/api/upload/uploadImage"
   payload={}
   files=[
-    ('imageFile',(file_name,open(file_path+file_name,'rb','image/png')))
+    ('imageFile',(file_name,open(file_path+file_name,'rb'),'image/png'))
   ]
   headers = {}
   response = requests.request("POST", url, headers=headers, data=payload, files=files)
