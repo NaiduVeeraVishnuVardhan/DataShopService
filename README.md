@@ -32,4 +32,4 @@ Include necessary packages for your model in requirements.txt. We prefer you to 
 
 **RUN Command for DOCKER**
 
-docker run -d -e BACKEND_URL=ADDRESSOFDATASHOPSERVICE -p 5000:5000 dockerimagename:tagname
+docker run -d -e BACKEND_URL=ADDRESSOFDATASHOP -p 5000:5000 dockerimagename:tagname
