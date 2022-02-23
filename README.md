@@ -3,9 +3,13 @@
 This repo is an example for Breast cancer prediction service. 
 
 **In order to use this template:**
+
 -Clone the repo.
+
 -Remove BreastCancerPicklemodel.pkl
+
 -Remove scalar.pkl
+
 -Change Preprocess and Postprocess functions according to your model/service.
 
 
