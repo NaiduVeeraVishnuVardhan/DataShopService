@@ -10,11 +10,11 @@ This repo is an example for Breast cancer prediction service.
 
 This template consists of three stages:
 
-**1. Preprocess **
+**1. Preprocess**
 
 - download the file from url return the file location (or) save the json input in to variable and return the variable.
  
-**2. Model **
+**2. Model**
 
 - Build/run the model and save the results and return the results file path. 
 
