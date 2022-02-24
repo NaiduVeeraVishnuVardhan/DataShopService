@@ -36,8 +36,11 @@ class predict(Resource):
             
         except Exception as e:
             #updating job with FAILED status.
-            post_process.updateJob(input_dict["jobID"], None, str(e))
-            return {"statusCode": 400, "error": str(e)}
+            try:
+                post_process.updateJob(input_dict["jobID"], None, str(e))
+                return {"statusCode": 400, "error": str(e)}
+            except Exception as e:
+                return {"statusCode": 400, "error": str(e)}                
 
 api.add_resource(predict, '/predict')
 
