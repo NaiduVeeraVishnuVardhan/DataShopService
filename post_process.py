@@ -60,13 +60,13 @@ def updateJob(jobID, insightsS3Link, err):
     if(err):    
         payload = json.dumps({
             "insightFileURL": "N/A",
-            "jobid":jobID,
+            "jobid":jobID
 
         })
     else:    
         payload = json.dumps({
                     "insightFileURL": insightsS3Link,
-                    "jobid":jobID,
+                    "jobid":jobID
                 })  
 
     headers = {
