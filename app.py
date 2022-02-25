@@ -4,6 +4,7 @@ import pre_process
 import post_process
 import model
 import os, shutil
+import time
 
 app = Flask(__name__)
 api = Api(app)
@@ -13,6 +14,7 @@ class predict(Resource):
     @staticmethod
     def post():
         try:
+            start = time.time();
             # Loads the body of the event.
             input_dict = request.get_json()         
             inputdata = input_dict["dataFileURL"]
@@ -32,15 +34,20 @@ class predict(Resource):
             # It takes insightsDataFileLocation, jobID as Input, upload the insights file to s3 and get the downloadable link for the same. and also send the jobID and insights link to the Datashop application.
             status_map = post_process.run(input_dict["jobID"], insightsDataFileLocation)
             print(status_map)
-            return {"statusCode": status_map["status_code"], "body": status_map["json_response"]}
-            
+
+            duration = time.time() - start;
+
+            return {"statusCode": status_map["status_code"], "body": status_map["json_response"], "duration":duration}
+                    
         except Exception as e:
             #updating job with FAILED status.
             try:
+                duration = time.time() - start;
                 post_process.updateJob(input_dict["jobID"], None, str(e))
-                return {"statusCode": 400, "error": str(e)}
+                return {"statusCode": 400, "error": str(e), "duration":duration}
             except Exception as e:
-                return {"statusCode": 400, "error": str(e)}                
+                duration = time.time() - start;
+                return {"statusCode": 400, "error": str(e),"duration":duration}                
 
 api.add_resource(predict, '/predict')
 

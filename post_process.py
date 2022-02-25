@@ -61,6 +61,7 @@ def updateJob(jobID, insightsS3Link, err):
         payload = json.dumps({
             "insightFileURL": "N/A",
             "jobid":jobID
+
         })
     else:    
         payload = json.dumps({
