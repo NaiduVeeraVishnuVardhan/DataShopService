@@ -29,5 +29,3 @@ def upload_image(file_name, file_path):
   print(inputdata)
   return inputdata["original"]
   
-
-  
