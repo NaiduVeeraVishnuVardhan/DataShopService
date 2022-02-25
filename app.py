@@ -38,14 +38,16 @@ class predict(Resource):
             duration = time.time() - start;
 
             return {"statusCode": status_map["status_code"], "body": status_map["json_response"], "duration":duration}
-                
+                    
         except Exception as e:
             #updating job with FAILED status.
             try:
+                duration = time.time() - start;
                 post_process.updateJob(input_dict["jobID"], None, str(e))
                 return {"statusCode": 400, "error": str(e), "duration":duration}
             except Exception as e:
-                return {"statusCode": 400, "error": str(e)}                
+                duration = time.time() - start;
+                return {"statusCode": 400, "error": str(e),"duration":duration}                
 
 api.add_resource(predict, '/predict')
 
