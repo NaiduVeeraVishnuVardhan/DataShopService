@@ -62,8 +62,6 @@ def run(jobID, url,json1):
         
         return inputPayloadForService
 
-
-
 def extract_zip_file(zipped_file):
     """
     title:: 

@@ -23,8 +23,8 @@ def upload_image(file_name, file_path):
   ]
   headers = {}
   response = requests.request("POST", url, headers=headers, data=payload, files=files)
-  print(response.text)
-  response_dict = json.loads(response.text)
+  print(response.text)  
+  response_dict = json.loads(response_dict["data"])
   inputdata = response_dict["data"]["imageFileURL"]
   print(inputdata)
   return inputdata["original"]
