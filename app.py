@@ -16,9 +16,13 @@ class predict(Resource):
         try:
             start = time.time();
             # Loads the body of the event.
-            input_dict = request.get_json()         
-            inputdata = input_dict["dataFileURL"]
-            
+            input_dict = request.get_json()  
+            backend_url = input_dict["datashopServerAddress"] 
+
+            if(os.environ["BACKEND_URL"] != backend_url):
+                os.environ["BACKEND_URL"] = backend_url
+        
+            inputdata = input_dict["dataFileURL"]        
             if(os.path.exists("tmp")):
                 shutil.rmtree("tmp")
             os.mkdir('tmp')
@@ -38,7 +42,7 @@ class predict(Resource):
             duration = time.time() - start;
 
             return {"statusCode": status_map["status_code"], "body": status_map["json_response"], "duration":duration}
-                    
+                        
         except Exception as e:
             #updating job with FAILED status.
             try:

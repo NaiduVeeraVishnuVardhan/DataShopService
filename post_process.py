@@ -25,9 +25,6 @@ def run(jobID, dataLocation):
     file_name = dataLocation.split("/")[-1]
     file_path = dataLocation.replace(file_name,"")
     
-    # elif file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
-    #     insightsS3Link = backend.upload_image(file_name, file_path) 
-
     try:
         if file_name.lower().endswith(".csv"):
             insightsS3Link = backend.upload_document(file_name, file_path)
